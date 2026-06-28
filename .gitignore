@@ -1,1 +1,14 @@
-.venv
+# Ambiente virtual Python (NUNCA versionar)
+.venv/
+venv/
+env/
+
+# Variáveis de ambiente (NUNCA versionar)
+.env
+
+# Cache Python
+__pycache__/
+*.pyc
+
+# VS Code
+.vscode/
