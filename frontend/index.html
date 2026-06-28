@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIX Fin - Assistente de Investimentos</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">VIX Fin 💶</div>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link" onclick="showSection('home')">Início</a></li>
+                <li><a href="#educacao" class="nav-link" onclick="showSection('educacao')">Educação</a></li>
+                <li><a href="#cotacoes" class="nav-link" onclick="showSection('cotacoes')">Cotações</a></li>
+                <li><a href="#simulador" class="nav-link" onclick="showSection('simulador')">Simulador</a></li>
+                <li><a href="#recomendacoes" class="nav-link" onclick="showSection('recomendacoes')">Recomendações</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <!-- Seção Home -->
+        <section id="home" class="section active">
+            <div class="hero">
+                <h1>Bem-vindo ao VIX Fin</h1>
+                <p>Seu assistente inteligente para começar a investir</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="showSection('educacao')">Aprender</button>
+                    <button class="btn btn-secondary" onclick="showSection('recomendacoes')">Meu Perfil</button>
+                </div>
+            </div>
+
+            <div class="features">
+                <div class="feature" onclick="showSection('educacao')">
+                    <h3>📚 Educação</h3>
+                    <p>Aprenda conceitos e dicas de investimento</p>
+                </div>
+                <div class="feature" onclick="showSection('cotacoes')">
+                    <h3>📊 Cotações</h3>
+                    <p>Acompanhe preços em tempo real</p>
+                </div>
+                <div class="feature" onclick="showSection('simulador')">
+                    <h3>🎯 Simulador</h3>
+                    <p>Simule seus investimentos</p>
+                </div>
+                <div class="feature" onclick="showSection('recomendacoes')">
+                    <h3>✨ Recomendações</h3>
+                    <p>Recomendações personalizadas para você</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Educação -->
+        <section id="educacao" class="section">
+            <h2>📚 Educação Financeira</h2>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('conceitos')">Conceitos</button>
+                <button class="tab-btn" onclick="switchTab('tipos')">Tipos de Investimento</button>
+                <button class="tab-btn" onclick="switchTab('dicas')">Dicas</button>
+            </div>
+
+            <div id="conceitos" class="tab-content active">
+                <div id="conceitos-list" class="cards-grid"></div>
+            </div>
+
+            <div id="tipos" class="tab-content">
+                <div id="tipos-list" class="cards-grid"></div>
+            </div>
+
+            <div id="dicas" class="tab-content">
+                <div class="card">
+                    <h3>🎯 Dicas para Iniciantes</h3>
+                    <ul id="dicas-list"></ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Cotações -->
+        <section id="cotacoes" class="section">
+            <div class="cotacoes-header">
+                <h2>📊 Mercado em Tempo Real</h2>
+                <div class="status-tempo-real" aria-live="polite">
+                    <span class="ponto-pulsa"></span>
+                    <span class="status-texto">Atualizando ao vivo</span>
+                </div>
+            </div>
+
+            <!-- Abas de Navegação -->
+            <div class="abas-cotacoes">
+                <button class="aba-btn ativa" onclick="alternarAba('moedas', this)">💵 Moedas & Cripto</button>
+                <button class="aba-btn" onclick="alternarAba('acoes-br', this)">🇧🇷 Ações Brasileiras</button>
+                <button class="aba-btn" onclick="alternarAba('acoes-global', this)">🌐 Líderes Globais</button>
+            </div>
+
+            <!-- PAINEL 1: MOEDAS -->
+            <div id="painel-moedas" class="painel-conteudo">
+                <div class="grid-cotacoes">
+                    <div class="card-moeda" id="card-usd">
+                        <h3>Dólar (USD)</h3>
+                        <p id="usd-value" class="valor-carregando">Carregando...</p>
+                        <span id="usd-pct" class="porcentagem">0.00%</span>
+                    </div>
+                    <div class="card-moeda" id="card-eur">
+                        <h3>Euro (EUR)</h3>
+                        <p id="eur-value" class="valor-carregando">Carregando...</p>
+                        <span id="eur-pct" class="porcentagem">0.00%</span>
+                    </div>
+                    <div class="card-moeda" id="card-btc">
+                        <h3>Bitcoin (BTC)</h3>
+                        <p id="btc-value" class="valor-carregando">Carregando...</p>
+                        <span id="btc-pct" class="porcentagem">0.00%</span>
+                    </div>
+                    <div class="card-moeda" id="card-eth">
+                        <h3>Ethereum (ETH)</h3>
+                        <p id="eth-value" class="valor-carregando">Carregando...</p>
+                        <span id="eth-pct" class="porcentagem">0.00%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAINEL 2: AÇÕES BRASILEIRAS -->
+            <div id="painel-acoes-br" class="painel-conteudo" style="display: none;">
+                <div class="grid-cotacoes">
+                    <div class="card-moeda principal-indice" id="card-bvsp">
+                        <h3>📈 Índice Ibovespa</h3>
+                        <p id="bvsp-value" class="valor-carregando">Carregando...</p>
+                        <span id="bvsp-pct" class="porcentagem">0.00%</span>
+                    </div>
+                    <div class="card-moeda" id="card-petr4">
+                        <h3>⚓ Petrobras (PETR4)</h3>
+                        <p id="petr4-value" class="valor-carregando">Carregando...</p>
+                        <span id="petr4-pct" class="porcentagem">0.00%</span>
+                    </div>
+                    <div class="card-moeda" id="card-vale3">
+                        <h3>⛏️ Vale (VALE3)</h3>
+                        <p id="vale3-value" class="valor-carregando">Carregando...</p>
+                        <span id="vale3-pct" class="porcentagem">0.00%</span>
+                    </div>
+                    <div class="card-moeda" id="card-itub4">
+                        <h3>🏦 Itaú Unibanco (ITUB4)</h3>
+                        <p id="itub4-value" class="valor-carregando">Carregando...</p>
+                        <span id="itub4-pct" class="porcentagem">0.00%</span>
+                    </div>
+                    <div class="card-moeda" id="card-wege3">
+                        <h3>⚡ WEG (WEGE3)</h3>
+                        <p id="wege3-value" class="valor-carregando">Carregando...</p>
+                        <span id="wege3-pct" class="porcentagem">0.00%</span>
+                    </div>
+                    <div class="card-moeda" id="card-taee11">
+                        <h3>🔌 Taesa (TAEE11)</h3>
+                        <p id="taee11-value" class="valor-carregando">Carregando...</p>
+                        <span id="taee11-pct" class="porcentagem">0.00%</span>
+                    </div>
+                    <div class="card-moeda" id="card-itsa4">
+                        <h3>🏛️ Itaúsa (ITSA4)</h3>
+                        <p id="itsa4-value" class="valor-carregando">Carregando...</p>
+                        <span id="itsa4-pct" class="porcentagem">0.00%</span>
+                    </div>
+                    <div class="card-moeda" id="card-abev3">
+                        <h3>🍺 Ambev (ABEV3)</h3>
+                        <p id="abev3-value" class="valor-carregando">Carregando...</p>
+                        <span id="abev3-pct" class="porcentagem">0.00%</span>
+                    </div>
+                    <div class="card-moeda" id="card-sbsp3">
+                        <h3>💧 Sabesp (SBSP3)</h3>
+                        <p id="sbsp3-value" class="valor-carregando">Carregando...</p>
+                        <span id="sbsp3-pct" class="porcentagem">0.00%</span>
+                    </div>
+                    <div class="card-moeda" id="card-enev3">
+                        <h3>⚡ Eneva (ENEV3)</h3>
+                        <p id="enev3-value" class="valor-carregando">Carregando...</p>
+                        <span id="enev3-pct" class="porcentagem">0.00%</span>
+                    </div>
+                    <div class="card-moeda" id="card-bbdc3">
+                        <h3>🏦 Bradesco ON (BBDC3)</h3>
+                        <p id="bbdc3-value" class="valor-carregando">Carregando...</p>
+                        <span id="bbdc3-pct" class="porcentagem">0.00%</span>
+                    </div>
+                    <div class="card-moeda" id="card-bbas3">
+                        <h3>🏦 Banco do Brasil (BBAS3)</h3>
+                        <p id="bbas3-value" class="valor-carregando">Carregando...</p>
+                        <span id="bbas3-pct" class="porcentagem">0.00%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAINEL 3: LÍDERES GLOBAIS -->
+            <div id="painel-acoes-global" class="painel-conteudo" style="display: none;">
+                <div class="grid-cotacoes">
+                    <div class="card-moeda" id="card-aapl">
+                        <h3>🍏 Apple (AAPL)</h3>
+                        <p id="aapl-value" class="valor-carregando">Carregando...</p>
+                        <span id="aapl-pct" class="porcentagem">0.00%</span>
+                    </div>
+                    <div class="card-moeda" id="card-msft">
+                        <h3>💻 Microsoft (MSFT)</h3>
+                        <p id="msft-value" class="valor-carregando">Carregando...</p>
+                        <span id="msft-pct" class="porcentagem">0.00%</span>
+                    </div>
+                    <div class="card-moeda" id="card-nvda">
+                        <h3>🧠 NVIDIA (NVDA)</h3>
+                        <p id="nvda-value" class="valor-carregando">Carregando...</p>
+                        <span id="nvda-pct" class="porcentagem">0.00%</span>
+                    </div>
+                    <div class="card-moeda" id="card-amzn">
+                        <h3>📦 Amazon (AMZN)</h3>
+                        <p id="amzn-value" class="valor-carregando">Carregando...</p>
+                        <span id="amzn-pct" class="porcentagem">0.00%</span>
+                    </div>
+                    <div class="card-moeda" id="card-googl">
+                        <h3>🔍 Alphabet (GOOGL)</h3>
+                        <p id="googl-value" class="valor-carregando">Carregando...</p>
+                        <span id="googl-pct" class="porcentagem">0.00%</span>
+                    </div>
+                    <div class="card-moeda" id="card-meta">
+                        <h3>📘 Meta (META)</h3>
+                        <p id="meta-value" class="valor-carregando">Carregando...</p>
+                        <span id="meta-pct" class="porcentagem">0.00%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Simulador -->
+        <section id="simulador" class="section">
+            <h2>🎯 Simulador de Investimentos</h2>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Valor Inicial (R$):</label>
+                    <input type="number" id="valor-inicial" value="1000" min="100">
+                </div>
+                <div class="form-group">
+                    <label>Aporte Mensal (R$):</label>
+                    <input type="number" id="aporte-mensal" value="200" min="0">
+                </div>
+                <div class="form-group">
+                    <label>Taxa Anual Esperada (%):</label>
+                    <input type="number" id="taxa-anual" value="10" min="1" max="50" step="0.5">
+                </div>
+                <div class="form-group">
+                    <label>Horizonte (Anos):</label>
+                    <input type="number" id="horizonte" value="10" min="1" max="50">
+                </div>
+            </div>
+
+            <button onclick="simularInvestimento()" class="btn btn-primary">Simular</button>
+
+            <div id="simulacao-resultado" class="card"></div>
+        </section>
+
+        <!-- Seção Recomendações -->
+        <section id="recomendacoes" class="section">
+            <h2>✨ Recomendações Personalizadas</h2>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Renda Mensal (R$):</label>
+                    <input type="number" id="renda" value="5000" min="500">
+                </div>
+                <div class="form-group">
+                    <label>Objetivo:</label>
+                    <select id="objetivo">
+                        <option value="acumular">Acumular Patrimônio</option>
+                        <option value="gerar_renda">Gerar Renda</option>
+                        <option value="aposentadoria">Preparar Aposentadoria</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Horizonte de Tempo (Anos):</label>
+                    <input type="number" id="horizonte-recom" value="10" min="1" max="50">
+                </div>
+                <div class="form-group">
+                    <label>Aversão ao Risco:</label>
+                    <select id="aversao-risco">
+                        <option value="baixa">Baixa (Conservador)</option>
+                        <option value="moderada" selected>Moderada (Equilibrado)</option>
+                        <option value="alta">Alta (Agressivo)</option>
+                    </select>
+                </div>
+            </div>
+
+            <button onclick="obterRecomendacoes()" class="btn btn-primary">Gerar Recomendações</button>
+
+            <div id="recomendacoes-resultado" class="card"></div>
+        </section>
+
+    </div><!-- /.container -->
+
+    <footer>
+        <p>&copy; 2026 VIX Fin - Educação Financeira | Desenvolvido com 💖</p>
+    </footer>
+
+    <!-- WIDGET DE CHAT FLUTUANTE -->
+    <div id="chat-widget">
+        <!-- Botão flutuante (fechado) -->
+        <button id="chat-toggle-btn" onclick="alternarChat()" aria-label="Abrir chat">
+            💬
+        </button>
+
+        <!-- Janela do chat (escondida por padrão) -->
+        <div id="chat-janela" class="chat-escondido">
+            <div class="chat-header">
+                <span>🙋🏻‍♀️ Assistente VIX Fin</span>
+                <button onclick="alternarChat()" class="chat-fechar" aria-label="Fechar chat">✕</button>
+            </div>
+
+            <div id="chat-mensagens" class="chat-mensagens">
+                <div class="chat-msg chat-msg-bot">
+                    Olá! 👋 Sou a Atena, a assistente educacional do VIX Fin. Pode me perguntar sobre conceitos de investimento,
+                    tipos de ativos, juros compostos, diversificação... Lembre-se: isso é só conteúdo educacional, não tenho
+                    como objetivo te influenciar a fazer um investimento de alto risco.
+                </div>
+            </div>
+
+            <div id="chat-digitando" class="chat-digitando" style="display: none;">Digitando...</div>
+
+            <form id="chat-form" class="chat-input-area" onsubmit="enviarMensagemChat(event)">
+                <input type="text" id="chat-input" placeholder="Digite sua pergunta..." autocomplete="off" />
+                <button type="submit" class="chat-enviar-btn">➤</button>
+            </form>
+        </div>
+    </div><!-- /#chat-widget -->
+
+    <script src="static/app.js?v=2.1"></script>
+</body>
+</html>

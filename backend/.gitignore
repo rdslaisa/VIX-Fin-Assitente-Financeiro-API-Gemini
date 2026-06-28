@@ -1,0 +1,6 @@
+# Variáveis de ambiente (NUNCA versionar)
+.env
+
+
+READMEINTERNO.md
+test_api.py
