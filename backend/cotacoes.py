@@ -13,7 +13,8 @@ FALLBACK_COTACOES = {
         'abertura': 4.90,
         'maxima': 4.98,
         'minima': 4.88,
-        'volume': 1000000
+        'volume': 1000000,
+        'variacao': 0.0
     }
 }
 

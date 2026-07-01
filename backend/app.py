@@ -64,7 +64,7 @@ def moedas():
 @app.route('/api/simulador/simular', methods=['POST'])
 def simular():
     """Simula um investimento"""
-    data = request.json
+    data = request.get_json(silent=True) or {}
     try:
         resultado = simular_investimento(
             valor_inicial=float(data['valor_inicial']),
@@ -81,7 +81,7 @@ def simular():
 @app.route('/api/recomendacoes', methods=['POST'])
 def recomendacoes():
     """Gera recomendações personalizadas"""
-    perfil = request.json
+    perfil = request.get_json(silent=True) or {}
     try:
         recomendacao = get_recomendacao_personalizada(
             renda=float(perfil.get('renda', 0)),
@@ -97,7 +97,7 @@ def recomendacoes():
 @app.route('/api/chat', methods=['POST'])
 def chat():
     """Recebe mensagem do usuário e retorna resposta do assistente (Gemini)."""
-    data = request.json or {}
+    data = request.get_json(silent=True) or {}
     mensagem = data.get('mensagem', '')
     historico = data.get('historico', [])
 

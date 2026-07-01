@@ -58,7 +58,7 @@ def simular_investimento(valor_inicial, aporte_mensal, taxa_anual, anos, ativo='
 def calcular_rentabilidade(valor_inicial, valor_final, tempo_dias=365):
     """Calcula rentabilidade entre dois valores"""
     ganho = valor_final - valor_inicial
-    rentabilidade_percentual = (ganho / valor_inicial * 100)
+    rentabilidade_percentual = (ganho / valor_inicial * 100) if valor_inicial else 0
     rentabilidade_anualizada = (rentabilidade_percentual / tempo_dias) * 365
     
     return {
