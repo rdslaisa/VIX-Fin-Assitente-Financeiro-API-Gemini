@@ -15,7 +15,12 @@ cd "VIX Fin"
 # 2. Instalar dependências
 pip install -r requirements.txt
 
-# 3. Executar o servidor
+# 3. Configurar a chave do Gemini (necessária para o chat da Atena)
+cp .env.example .env
+# edite o .env e preencha GEMINI_API_KEY com uma chave gratuita de
+# https://aistudio.google.com/app/apikey
+
+# 4. Executar o servidor
 cd backend
 python app.py
 ```
